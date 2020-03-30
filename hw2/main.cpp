@@ -28,12 +28,12 @@ int main(void)
     greenLED = 1;
     display = 0x00;
 
-    for (int i = 0; i < sample; i++){
+    for (int i = 0; i < sample; i++) {
         Aout = Ain;
         ADCdata[i] = Ain;
-        wait(1./sample);
+        wait(1. / sample);
     }
-    for (int i = 0; i < sample; i++){
+    for (int i = 0; i < sample; i++) {
         pc.printf("%1.3f\r\n", ADCdata[i]);
         wait(0.1);
     }
@@ -49,9 +49,10 @@ int main(void)
                 }
                 done = true;
                 freq = int(1 / (Ts * 0.001 * 2));
+                int temp = freq;
                 for (int i = 2; i >= 0; i--) {
-                    F[i] = freq % 10;
-                    freq /= 10;
+                    F[i] = temp % 10;
+                    temp /= 10;
                 }
             }
         }
@@ -61,7 +62,7 @@ int main(void)
             display = 0x00;
             for (float i = 0; i < 2; i += 0.05) {
                 Aout = 0.5 + 0.5 * sin(i * 3.14159);
-                wait(0.00025);
+                wait((1. / freq) / (2. / 0.05));
             }
         }
         else {
